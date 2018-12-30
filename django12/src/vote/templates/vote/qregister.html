@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+설문조사 등록
+{% endblock %}
+
+{% block content %}
+	<h1>설문조사 등록</h1>
+	<form acton="" method="POST">
+		{% csrf_token %}
+		<!-- view에서 넘겨준 변수 f == QuestionForm객체
+		f.as_p 함수 : 각각의 입력양식(<input>를 <p></p>사이에 넣는 형식으로 HtML코드 생성
+		f.as_table : <tr><td> 태그사이에 <input>를 넣는 형식으로 HTML코드 생성 -->
+		{{f.as_p}}
+		<input type = "submit" value="질문등록">
+	</form>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+상세보기
+{% endblock %}
+
+{% block content %}
+	<h1>{{q.name}}</h1>
+	<p>{{q.date}}</p>
+	<form action="{% url 'vote:vote' %}" method="POST">
+		{% csrf_token %} {#사이트 공격을 막기위해 form태그 사용시 django가 요구하는 필수기능#}
+		{# 모델클래스A의객체.모델클래스B_set : 외래키로 연결되있는 다른 모델클래스의 객체를 추출 기법 #}
+		{# q.choice_set : Question 객체 q에 연결된 Choice 객체를 대상으로 #}
+		{# all(), get(), filter()을 이용해 추출할 수 있음 #}
+		{# HTML 코드 내에서 파이썬 함수를 쓸때는 함수 이름만 기입 #}
+		
+		{% for c in q.choice_set.all %}
+			<input type="radio" name="a" value="{{c.id}}">
+			<label>{{c.name}}</label>
+			<a href="{% url 'vote:cupdate' c.id %}">수정</a>
+			<a href="{% url 'vote:cdelete' c.id %}">삭제</a>
+			<br>
+		{% endfor %}
+		<input type="submit" value="투표하기">
+	</form>
+	<a href="{% url 'vote:qupdate' q.id %}">수정</a>
+	<a href="{% url 'vote:qdelete' q.id %}">삭제</a>
+	<a href="{% url 'vote:index' %}">돌아가기</a>
+	
+{% endblock %}

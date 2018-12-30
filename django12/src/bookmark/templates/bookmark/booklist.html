@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+북마크 리스트
+{% endblock %}
+
+{% block content %}
+	<h1>데이터 베이스에 저장된 북마크 객체</h1>
+	<ol>
+		{#obj:Bookmark 객체#}
+		{% for obj in objs %}
+			<li><a href="/detail/{{obj.id}}/">{{obj.name}}</a></li>
+		{% endfor %}
+	</ol>
+
+{% endblock %}

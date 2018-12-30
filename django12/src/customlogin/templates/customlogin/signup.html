@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}
+회원가입
+{% endblock %}
+
+{% block content %}
+
+	{%if error %}
+		<h3 style="color:red">{{error}}</h3>
+	{%endif%}
+	<form action="" method="POST">
+		{% csrf_token %}
+		<table>
+			{{f.as_table}}
+		</table>
+		<input type="submit" value="회원가입">
+	</form>
+{% endblock %}

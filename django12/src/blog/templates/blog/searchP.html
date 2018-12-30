@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{%block title%}
+
+{%endblock%}
+
+{%block content %}
+	<form action="" method="POST">
+		{% csrf_token %}
+		{{form.as_p}}
+		<input type="submit" value="검색">
+	</form>
+	<!-- 검색결과 출력, 검색결과가 있는 경우에만 테이블 출력(postlist변수를 받은 경우만) -->
+	{% if postlist %}
+		<p>'{{search_word}}' 검색결과</p>
+		<table width="90%">
+		<tr>
+			<th>글번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+		</tr>
+		{% for post in postlist %}
+			<tr>
+				<th>{{post.id}}</th>
+				<th><a href="{% url 'blog:detail' post.id %}">{{post.headline}}</a></th>
+				<th>{{post.author}}</th>
+				<th>{{post.pub_date}}</th>
+			</tr>
+	{% endfor %}
+</table>
+	{% endif %}
+{% endblock %}
